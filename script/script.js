@@ -1,5 +1,5 @@
 // Setup Timeing
-var h = 0,m = 0, s = 10;
+var h = 0,m = 5, s = 10;
 
 /**
 * Add leading 0 to int
@@ -37,8 +37,13 @@ function timer(){
     $("#time").text(h+':'+pad(m)+':'+pad(s));
 }
 $(document).ready(function(){
+    // Display Questions and start timer
    $("button#qstart").click(function(){
            $(".screen").slideUp(1000);
-          timerF = setInterval(timer,1000); 
-       }); 
+          timerF = setInterval(timer,1000);
+       });
+    // Clear selected answer
+    $("button#ans-clear").click(function(){
+        $("input:radio").removeAttr("checked");
+    });
 });
