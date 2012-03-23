@@ -1,7 +1,7 @@
 // Setup Timeing
 var h = 0,m = 5, s = 10;
 
-var totalQ, currQ = 0;
+var d, totalQ, currQ = 0;
 /**
 * Add leading 0 to int
 * @param num int
@@ -41,31 +41,37 @@ function timer(){
 }
 
 /**
- * Navigate between Questions
+ * Get JSON data from file
  */
-function getQuiz(now){
-    // Get json data
+function getData(){
     $.getJSON("quiz.js",function(data){
-        
+        d = data;
         // Get numbers of questions in set
         totalQ = data.quiz.length;
-        
-        // Display Question count
-        $("#qnum").html(now+1+'/'+totalQ);
-        
-        // Display Question
-        $("#qus").text(data.quiz[now].question);
-        
-        // Display Options
-        $.each(data.quiz[now].option, function(i,op){
-            //$(".options").append("<li>"+op+"</li>");
-        })
-        btnHandler(now);
     });
 }
 
 /**
+ * Navigate between Questions
+ * @param now int
+ */
+function showQuiz(now){
+    // Display Question count
+    $("#qnum").html(now+1+'/'+totalQ);
+
+    // Display Question
+    $("#qus").text(d.quiz[now].question);
+
+    // Display Options
+    $.each(d.quiz[now].option, function(i,op){
+        //$(".options").append("<li>"+op+"</li>");
+    })
+    btnHandler(now);
+}
+
+/**
  * Show or hide buttons
+ * @param now int
  */
 function btnHandler(now){
     if(now+1 == totalQ){
@@ -82,17 +88,21 @@ function btnHandler(now){
     }
 }
 
+/**
+ * Do finish and reset actions
+ */
 function finish(){
     $(".screen-finish").slideDown(1000);
 }
 
 $(document).ready(function(){
+    getData();
     // Display Questions and start timer
    $("button#qstart").click(function(){
         $(".screen-start").slideUp(1000);
         timerF = setInterval(timer,1000);
         // Load question on start
-        getQuiz(currQ);
+        showQuiz(currQ);
    });
     // Clear selected answer
     $("button#ans-clear").click(function(){
@@ -100,10 +110,14 @@ $(document).ready(function(){
     });
     // Go to next Question
     $("button#next-btn").click(function(){
-        getQuiz(++currQ);
+        showQuiz(++currQ);
     });
     // Go to previous question
     $("button#prev-btn").click(function(){
-        getQuiz(--currQ);
+        showQuiz(--currQ);
+    });
+    // Finish Quiz
+    $("button#fin-btn").click(function(){
+        finish();
     });
 });
