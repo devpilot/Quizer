@@ -1,8 +1,11 @@
 // Setup Timeing
 var h = 0,m = 5, s = 10;
 
+var totalQ, currQ = 0;
 /**
 * Add leading 0 to int
+* @param num int
+* @return string
 */
 function pad(num) {
     var s = num+"";
@@ -36,14 +39,48 @@ function timer(){
     // Setting time in span#time
     $("#time").text(h+':'+pad(m)+':'+pad(s));
 }
+
+/**
+ * Navigate between Questions
+ */
+function getQuiz(now){
+    // Get json data
+    $.getJSON("quiz.js",function(data){
+        
+        // Get numbers of questions in set
+        totalQ = data.quiz.length;
+        
+        // Display Question count
+        $("#qnum").html(now+1+'/'+totalQ);
+        
+        // Display Question
+        $("#qus").text(data.quiz[now].question);
+        
+        // Display Options
+        $.each(data.quiz[now].option, function(i,op){
+            //$(".options").append("<li>"+op+"</li>");
+        })
+    });
+}
+
 $(document).ready(function(){
     // Display Questions and start timer
    $("button#qstart").click(function(){
-           $(".screen").slideUp(1000);
-          timerF = setInterval(timer,1000);
-       });
+        $(".screen").slideUp(1000);
+        timerF = setInterval(timer,1000);
+        // Load question on start
+        getQuiz(currQ);
+   });
     // Clear selected answer
     $("button#ans-clear").click(function(){
         $("input:radio").removeAttr("checked");
+    });
+    // Go to next Question
+    $("button#next-btn").click(function(){
+        getQuiz(++currQ);
+    });
+    // Go to previous question
+    $("button#prev-btn").click(function(){
+        getQuiz(--currQ);
     });
 });
