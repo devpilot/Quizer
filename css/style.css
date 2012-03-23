@@ -68,7 +68,11 @@ td{
     padding-top: 20px;
     border-top: 1px solid #ffffff;
 }
-.nav-btn{
+button#prev-btn{
+    float: right;
+    margin-right: 10px;
+}
+button#next-btn{
     float: right;
 }
 #fin-btn{
