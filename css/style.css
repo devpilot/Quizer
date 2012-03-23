@@ -63,6 +63,9 @@ td{
 .nav-btn{
     float: right;
 }
+#fin-btn{
+    display: none;
+}
 footer{
     text-align: center;
 }
