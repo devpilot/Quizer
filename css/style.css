@@ -70,10 +70,10 @@ td{
 }
 button#prev-btn{
     float: right;
-    margin-right: 10px;
 }
 button#next-btn{
     float: right;
+    margin-left: 10px;
 }
 #fin-btn{
     display: none;
