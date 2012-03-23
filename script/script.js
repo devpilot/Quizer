@@ -34,7 +34,7 @@ function timer(){
     if(h == 0 && m == 0 && s == 0){
         // Timeup, Stop timer
         clearInterval(timerF);
-    $(".screen").slideDown(1000);
+    finish();
     }
     // Setting time in span#time
     $("#time").text(h+':'+pad(m)+':'+pad(s));
@@ -82,10 +82,14 @@ function btnHandler(now){
     }
 }
 
+function finish(){
+    $(".screen-finish").slideDown(1000);
+}
+
 $(document).ready(function(){
     // Display Questions and start timer
    $("button#qstart").click(function(){
-        $(".screen").slideUp(1000);
+        $(".screen-start").slideUp(1000);
         timerF = setInterval(timer,1000);
         // Load question on start
         getQuiz(currQ);

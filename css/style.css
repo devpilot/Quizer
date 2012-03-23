@@ -4,7 +4,7 @@ body{
 }
 #main{
     font-size: 18px;
-    margin: 60px auto;
+    margin: 50px auto;
     background:#ccc;
     width: 800px;
     height: 500px;
@@ -17,10 +17,18 @@ body{
     -moz-box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, .3);
     box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, .3); 
 }
-.screen{
+.screen-start{
 /*    display: none;*/
     padding-top: 150px;
     background:#0088CC;
+    height: 100%;
+    color: #fff;
+    text-align: center;
+}
+.screen-finish{
+    display: none;
+    padding-top: 150px;
+    background:#46a546;
     height: 100%;
     color: #fff;
     text-align: center;
