@@ -59,7 +59,6 @@ function getData(){
  * @param now int
  */
 function showQuiz(now){
-    retrieveAns(now);
     // Display Question count
     $("#qnum").html(now+1+'/'+totalQ);
 
@@ -68,8 +67,15 @@ function showQuiz(now){
 
     // Display Options
     $.each(d.quiz[now].option, function(i,op){
-        //$(".options").append("<li>"+op+"</li>");
+        $("ul.radioList").append('<li class="btn" data-val="'+i+'">'+op+'</li>');
     })
+    $("ul.radioList li").click(function(){
+        var Ans = $(this).data("val");
+        setAns(currQ, Ans);
+        $(".radioList li").removeClass("btn-success");
+        $(this).addClass("btn-success");
+    });
+    retrieveAns(now);
     btnHandler(now);
 }
 
@@ -106,13 +112,14 @@ function finish(){
  */
 function setAns(qNum,Ans){
     selAns[qNum] = Ans;
+    console.debug(selAns);
 }
 
 /**
- * Clear selected answer
+ * Clear displaying options
  */
-function clearSelection(){
-    $(".radioList li").removeClass("btn-success");
+function clearOptions(){
+    $("ul.radioList").html("");
 }
 
 /**
@@ -120,7 +127,6 @@ function clearSelection(){
  * @param qNum int Current question number
  */
 function retrieveAns(qNum){
-    clearSelection();
     var a = selAns[qNum];
     $('.radioList li[data-val|="'+a+'"]').addClass('btn-success');
 }
@@ -136,26 +142,21 @@ $(document).ready(function(){
    });
     // Clear selected answer
     $("button#ans-clear").click(function(){
-        clearSelection();
+        $(".radioList li").removeClass("btn-success");
         setAns(currQ, "");
     });
     // Go to next Question
     $("button#next-btn").click(function(){
+        clearOptions();
         showQuiz(++currQ);
     });
     // Go to previous question
     $("button#prev-btn").click(function(){
+        clearOptions();
         showQuiz(--currQ);
     });
     // Finish Quiz
     $("button#fin-btn").click(function(){
         finish();
-    });
-    //
-    $(".radioList li").click(function(){
-        var Ans = $(this).data("val");
-        setAns(currQ, Ans);
-        clearSelection();
-        $(this).addClass("btn-success");
     });
 });
