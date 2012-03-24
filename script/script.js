@@ -1,5 +1,5 @@
 // Setup Timeing
-var h = 0,m = 5, s = 10;
+var h = 0,m = 5, s = 0;
 
 var d, totalQ, currQ = 0;
 
@@ -102,6 +102,7 @@ function btnHandler(now){
  * Do finish and reset actions
  */
 function finish(){
+    checkAns();
     $(".screen-finish").slideDown(1000);
 }
 
@@ -112,7 +113,6 @@ function finish(){
  */
 function setAns(qNum,Ans){
     selAns[qNum] = Ans;
-    console.debug(selAns);
 }
 
 /**
@@ -131,6 +131,16 @@ function retrieveAns(qNum){
     $('.radioList li[data-val|="'+a+'"]').addClass('btn-success');
 }
 
+/**
+ * Check answer and calculate score
+ */
+function checkAns(){
+    var marks = 0;
+    $.each(d.quiz, function(i,op){
+       if(selAns[i]){marks++;}
+    });
+    $("div.screen-finish > h2").append(marks *100/totalQ+"%");
+}
 $(document).ready(function(){
     getData();
     // Display Questions and start timer
