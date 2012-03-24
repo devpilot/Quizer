@@ -2,6 +2,9 @@
 var h = 0,m = 5, s = 10;
 
 var d, totalQ, currQ = 0;
+
+var selAns = new Array();
+
 /**
 * Add leading 0 to int
 * @param num int
@@ -56,6 +59,7 @@ function getData(){
  * @param now int
  */
 function showQuiz(now){
+    retrieveAns(now);
     // Display Question count
     $("#qnum").html(now+1+'/'+totalQ);
 
@@ -95,6 +99,32 @@ function finish(){
     $(".screen-finish").slideDown(1000);
 }
 
+/**
+ * save selected answer in array
+ * @param qNum int Current question number
+ * @param Ans string Selected answer
+ */
+function setAns(qNum,Ans){
+    selAns[qNum] = Ans;
+}
+
+/**
+ * Clear selected answer
+ */
+function clearSelection(){
+    $(".radioList li").removeClass("btn-success");
+}
+
+/**
+ * Retrive previously selected answer
+ * @param qNum int Current question number
+ */
+function retrieveAns(qNum){
+    clearSelection();
+    var a = selAns[qNum];
+    $('.radioList li[data-val|="'+a+'"]').addClass('btn-success');
+}
+
 $(document).ready(function(){
     getData();
     // Display Questions and start timer
@@ -106,7 +136,8 @@ $(document).ready(function(){
    });
     // Clear selected answer
     $("button#ans-clear").click(function(){
-        $("input:radio").removeAttr("checked");
+        clearSelection();
+        setAns(currQ, "");
     });
     // Go to next Question
     $("button#next-btn").click(function(){
@@ -119,5 +150,12 @@ $(document).ready(function(){
     // Finish Quiz
     $("button#fin-btn").click(function(){
         finish();
+    });
+    //
+    $(".radioList li").click(function(){
+        var Ans = $(this).data("val");
+        setAns(currQ, Ans);
+        clearSelection();
+        $(this).addClass("btn-success");
     });
 });
