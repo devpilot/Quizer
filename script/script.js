@@ -137,7 +137,8 @@ function retrieveAns(qNum){
 function checkAns(){
     var marks = 0;
     $.each(d.quiz, function(i,op){
-       if(selAns[i]){marks++;}
+       if(selAns[i] && selAns[i] == op.ans){marks++;}
+       console.debug(selAns[i]);
     });
     $("div.screen-finish > h2").append(marks *100/totalQ+"%");
 }
