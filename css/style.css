@@ -49,14 +49,14 @@ body{
 #qus{
     margin: 0 20px;
     padding-top: 20px;
-    height: 28%;
+    height: 80px;
     color: #333;
     border-bottom: 1px solid #bbbbc1;
 }
 #ans{
     margin: 0 20px;
     padding:10px 0;
-    min-height: 210px;
+    min-height: 250px;
     border-top: 1px solid #ffffff;
     border-bottom: 1px solid #bbbbc1;
 }
@@ -89,6 +89,27 @@ button#next-btn{
 }
 #fin-btn{
     display: none;
+}
+#result{
+    padding: 10px;
+    height: 96%;
+    font-size: 14px;
+    overflow: auto;
+}
+#result li{
+    padding: 3px 0;
+    margin-left: 20px;
+}
+#result ol ol li{
+    list-style-type: lower-alpha;
+}
+#result ol li span.cross{
+    font-size: 18px;
+    color: red;
+}
+#result ol li span.check{
+    font-size: 18px;
+    color: green;
 }
 footer{
     text-align: center;

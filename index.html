@@ -26,25 +26,29 @@
                 <p style="font-size: 18px;">Thank you for taking the test</p>
                 <h2>You scored </h2>
                 <br />
-                <button class="btn btn-warning btn-large" onclick="window.location.reload()">Retry</button>
+                <button class="btn btn-warning" onclick="window.location.reload()">Retry</button>
+                <button id="show-ans" class="btn btn-info">Show answers</button>
             </div>
-            <div id="info">
-                <span id="qnum">2/10</span>
-                <span id="time"></span>
+            <div id="quiz">
+                <div id="info">
+                    <span id="qnum">2/10</span>
+                    <span id="time"></span>
+                </div>
+                <div id="qus">
+                    Questions will go here
+                </div>
+                <div id="ans">
+                    <ul class="radioList">
+                    </ul>
+                </div>
+                <div id="nav">
+                    <button id="fin-btn" class="btn btn-danger">Finish</button>
+                    <button id="ans-clear" class="btn">Deselect</button>
+                    <button id="next-btn" class="btn btn-primary">Next</button>
+                    <button id="prev-btn" class="btn btn-primary">Previous</button>
+                </div>
             </div>
-            <div id="qus">
-                Questions will go here
-            </div>
-            <div id="ans">
-                <ul class="radioList">
-        </ul>
-            </div>
-            <div id="nav">
-                <button id="fin-btn" class="btn btn-danger">Finish</button>
-                <button id="ans-clear" class="btn">Deselect</button>
-                <button id="next-btn" class="btn btn-primary">Next</button>
-                <button id="prev-btn" class="btn btn-primary">Previous</button>
-            </div>
+            <div id="result"><ol></ol></div>
         </div>
         <footer>
             <p>Designed by <a href="#">DevPilot</a></p>
