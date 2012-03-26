@@ -35,8 +35,6 @@ function timer(){
         }
     }
     if(h == 0 && m == 0 && s == 0){
-        // Timeup, Stop timer
-        clearInterval(timerF);
     finish();
     }
     // Setting time in span#time
@@ -102,8 +100,11 @@ function btnHandler(now){
  * Do finish and reset actions
  */
 function finish(){
+    // Timeup, Stop timer
+    clearInterval(timerF);
     checkAns();
     $(".screen-finish").slideDown(1000);
+    $("#quiz").hide();
 }
 
 /**
@@ -138,10 +139,34 @@ function checkAns(){
     var marks = 0;
     $.each(d.quiz, function(i,op){
        if(selAns[i] && selAns[i] == op.ans){marks++;}
-       console.debug(selAns[i]);
     });
     $("div.screen-finish > h2").append(marks *100/totalQ+"%");
 }
+
+/**
+ * show selected answers right or wrong
+ */
+function showAns(){
+    var prep = "", qKey;
+    $.each(d.quiz, function(i,q){
+        qKey = i;
+        prep +="<li>"+q.question+"<ol>";
+        $.each(q.option,function(i,o){
+            prep += "<li>"+o;
+            if(selAns[qKey] == i){
+                if(selAns[qKey] == q.ans){
+                    prep +=" <span class='check'>&#x2713;</span>";
+                } else {
+                    prep += " <span class='cross'>&Chi;</span>";
+                }
+            prep += "</li>";
+            }
+        });
+        prep += "</ol></li>"
+    });
+    $("#result>ol").html(prep);
+}
+
 $(document).ready(function(){
     getData();
     // Display Questions and start timer
@@ -169,5 +194,9 @@ $(document).ready(function(){
     // Finish Quiz
     $("button#fin-btn").click(function(){
         finish();
+    });
+    $("button#show-ans").click(function(){
+        showAns();
+        $(".screen-finish").slideUp(1000);
     });
 });
